@@ -3,7 +3,7 @@
 // Set up Canvas and Graphics Context
 let cnv = document.getElementById("myCanvas");
 let ctx = cnv.getContext("2d");
-initGraphics(800, 800);
+initGraphics(1200, 800);
 
 // Variables
 let snowflakes = [];
@@ -19,10 +19,10 @@ function draw() {
         snowflakes[i].y += snowflakes[i].speed;
         if (snowflakes[i].y > cnv.height) {
             snowflakes[i].y = 0;
-            snowflakes[i].x = Math.random(0, cnv.width)
+            snowflakes[i].x = Math.randomDec(0, cnv.width)
         }
         // Draw snowflakes
-        ctx.strokeStyle = 'white';
+        ctx.fillStyle = 'white';
         ctx.fillCircle(snowflakes[i].x, snowflakes[i].y, snowflakes[i].r);
 
     }
@@ -41,9 +41,23 @@ function keyDownHandler(event) {
             snowflakes.push({
                 x: Math.randomDec(0, cnv.width),
                 y: Math.randomDec(0, cnv.height),
-                r: Math.randomDec(1, 3),
+                r: Math.randomDec(2, 5),
                 speed: Math.randomDec(4, 7)
             });
         }
+    } else if (event.code == 'Space') {
+        snowflakes.push({
+            x: Math.randomDec(0, cnv.width),
+            y: Math.randomDec(0, cnv.height),
+            r: Math.randomDec(2, 5),
+            speed: Math.randomDec(4, 7)
+        })
+    } else if (event.code == 'Backspace') {
+        snowflakes.pop()
+    } else if (event.code == 'KeyR') {
+        for (let i = 0; i < snowflakes.length; i++) {
+            snowflakes.splice(i--, 1)
+        }
+
     }
 }
